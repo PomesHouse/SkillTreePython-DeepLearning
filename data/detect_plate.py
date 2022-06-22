@@ -11,9 +11,10 @@ def plate_detector(img, plate_cascade_name):
     plate_model = cv2.CascadeClassifier()
     plate_model.load(cv2.samples.findFile(plate_cascade_name))
     pred = plate_model.detectMultiScale(hist)
-    x, y, w, h = pred[0]
-    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    cv2_imshow(img)
+    if bool(len(pred)):
+        x, y, w, h = pred[0]
+        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv2_imshow(img)
         
 
 ##############################################
@@ -59,18 +60,13 @@ def crop_result(img, boxes, confidences, class_ids, class_names, plate_cascade_n
     for bi, (x, y, w, h) in enumerate(boxes):
         if bi in selected_box_idx:
             class_id = class_ids[bi]
-            #color = class_colors[class_id]
             class_name = class_names[class_id]
-        
             if class_name == 'car':
                 if x < 0:
                     x = 0 
                 if  y < 0:
                     y = 0
-                #cv2.rectangle(img, (x, y), (x+w, y+h), color , 2)
-                #cv2.putText(img, class_name, (x, y+h), cv2.FONT_HERSHEY_SIMPLEX, .6, color, 2 )
                 cropped = img[y:y+h, x:x+w]
-                #cv2_imshow(cropped)
                 plate_detector(cropped, plate_cascade_name)
 
 def plate2detect(img, model, predict_layer_names, class_names, plate_cascade_name, min_confidence = 0.5):
