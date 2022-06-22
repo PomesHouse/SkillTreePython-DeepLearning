@@ -12,8 +12,8 @@ def plate_detector(img, plate_cascade_name):
     plate_model.load(cv2.samples.findFile(plate_cascade_name))
     pred = plate_model.detectMultiScale(hist)
     for (x, y, w, h) in pred:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    cv2_imshow(img)
+        marked = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        cv2_imshow(marked)
 
 ##############################################
 def set_model(weight_file, cfg_file):
