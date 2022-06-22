@@ -68,6 +68,8 @@ def crop_result(img, boxes, confidences, class_ids, class_names, plate_cascade_n
                     y = 0
                 cropped = img[y:y+h, x:x+w]
                 plate_detector(cropped, plate_cascade_name)
+    IPython.display.clear_output(wait=True) # 출력결과 매번 지워줌
+    cv2_imshow(img)
 
 def plate2detect(img, model, predict_layer_names, class_names, plate_cascade_name, min_confidence = 0.5):
     boxes, confidences, class_ids = get_predicts(img, model, predict_layer_names, min_confidence = 0.5)
