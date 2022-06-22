@@ -13,7 +13,7 @@ def plate_detector(img, plate_cascade_name):
     pred = plate_model.detectMultiScale(hist)
     x, y, w, h = pred[0]
     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    cv2_imshow(marked)
+    cv2_imshow(img)
         
 
 ##############################################
