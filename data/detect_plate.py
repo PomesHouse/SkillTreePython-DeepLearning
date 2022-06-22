@@ -14,6 +14,7 @@ def plate_detector(img, plate_cascade_name):
     for (x, y, w, h) in pred:
         marked = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2_imshow(marked)
+        marked = img
 
 ##############################################
 def set_model(weight_file, cfg_file):
